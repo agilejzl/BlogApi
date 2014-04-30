@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :article do
-    title "MyString"
+    title { Faker::Name.name }
     content "MyText"
     author_id 1
   end

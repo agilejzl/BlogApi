@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe Author do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "test fields" do
+    before(:each) do
+      @post = FactoryGirl.create(:author)
+    end
+
+    describe "属性检查" do
+      it { should respond_to(:name) }
+    end
+  end
 end

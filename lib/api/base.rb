@@ -9,7 +9,6 @@ class API::Base < Grape::API
     end
   end
 
-
 	module Auth
     def authenticate!
       # error!({status: 401, status_code: 'unauthorized'}, 401) unless current_user

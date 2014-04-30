@@ -13,7 +13,7 @@ module V1
 
       desc "get all articles information"
       get do
-        puts "get articles at #{server_time}"
+        puts "\nGet articles at #{server_time}"
         Article.limit(10)
       end
 
@@ -23,38 +23,27 @@ module V1
       end
       route_param :id do
         get do
-          Article.find(params[:id])
+          article = Article.find(params[:id])
         end
       end
 
       desc "create an article"
       params do
-        requires :title, type: String, desc: "title of article"
-        requires :content, type: String, desc: "content of article"
-        requires :author_id, type: Integer, desc: "author_id of article"
+        requires :article, type: Hash, desc: "article's attributes"
       end
       post do
         authenticate!
-        Article.create!({
-          title: params[:title],
-          content: params[:content],
-          author_id: params[:author_id]
-        })
+        article = Article.create!(params[:article])
       end
 
-      desc "update an article"
+      desc "update an exist article"
       params do
-        requires :title, type: String, desc: "title of article"
-        requires :content, type: String, desc: "content of article"
-        requires :author_id, type: Integer, desc: "author_id of article"
+        requires :article, type: Hash, desc: "article's new attributes"
       end
       put ':id' do
         authenticate!
-        Article.find(params[:id]).update({
-          title: params[:title],
-          content: params[:content],
-          author_id: params[:author_id]
-        })
+        article = Article.find(params[:id])
+        article.update(params[:article])
       end
 
       desc "delete an article"
