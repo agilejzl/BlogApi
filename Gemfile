@@ -35,6 +35,7 @@ group :development, :test do
   gem 'hirb'
   gem 'coco'
   gem 'capybara'
+  gem 'minitest'
   gem 'rspec-rails', '2.14'
   gem 'rspec-expectations'
   gem 'ffaker', '~> 1.12.0'
