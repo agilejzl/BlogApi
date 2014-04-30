@@ -21,5 +21,8 @@ module BlogApi
     config.i18n.default_locale = 'zh-CN'
     config.encoding = "utf-8"
     config.filter_parameters += [:password]
+
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/app/api)
   end
 end
