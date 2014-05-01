@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Blog::API do
-  let(:author) { Author.create(:name => 'zs') }
+  let(:author) { Author.find_or_create_by(:name => 'zs') }
   let(:article) { FactoryGirl.create(:article, title: 'Sample Title', content: "Sample Content") }
 
   describe "GET /v1/articles" do
