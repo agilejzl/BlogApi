@@ -8,7 +8,7 @@ class Article < ActiveRecord::Base
     {
       :title => title,
       :content => content,
-      :author_id => author.id
+      :author_id => author.try(:id)
     }
   end
 end

@@ -2,10 +2,29 @@
 module Blog
   class API < API::Base
     resource :articles do
+      helpers do
+        def find_by_id(id)
+          @article = Article.find_by(:id => id)
+          unless @article.present?
+            error!({ :error => 'article not found' }, 400)
+          end
+        end
+
+        def valid_with_present
+          if @article.valid?
+            present @article
+          else
+            error_msgs = @article.errors.to_json
+            logger.error error_msgs
+            error!({ :error => error_msgs }, 400)
+          end
+        end
+      end
 
       desc "get all articles information"
       get do
-        @articles = Article.includes(:author).paginate(:page => params[:page], :per_page => params[:per_page] || 20)
+        paginate_params = { :page => params[:page], :per_page => params[:per_page] || 20 }
+        @articles = Article.includes(:author).paginate(paginate_params)
         present @articles
       end
 
@@ -15,46 +34,40 @@ module Blog
       end
       route_param :id do
         get do
-          @article = Article.find_by(:id => params[:id])
-          
-          if @article.present?
-            present @article
-          else
-            error!({ :error => 'recorrd not found' }, 400)
-          end
+          find_by_id params[:id]
+          present @article
         end
       end
 
       desc "create an article"
       params do
+        requires :author_name, type: String, desc: "article's author name"
         requires :article, type: Hash, desc: "article's attributes"
       end
       post do
         authenticate!
-        @article = Article.new(params[:article])
-
-        if @article.save
-          present @article
-        else
-          error_msgs = @article.errors.to_json
-          logger.error error_msgs
-          error!({ :error => error_msgs }, 400)
-        end
+        @author =  Author.find_or_create_by(:name => params[:author_name])
+        @article = Article.create(params[:article].merge(:author_id => @author.id))
+        valid_with_present
       end
 
       desc "update an exist article"
       params do
+        optional :author_name, type: String, desc: "article's author name"
         requires :article, type: Hash, desc: "article's new attributes"
       end
       put ':id' do
         authenticate!
-        @article = Article.find(params[:id])
+        find_by_id params[:id]
 
-        if @article.update_attributes(params[:article])
-          present @article
+        if params[:author_name]
+          @author =  Author.find_or_create_by(:name => params[:author_name])
+          @article.update_attributes(params[:article].merge(:author_id => @author.id))
         else
-          error!({ :error => 'update article failed' }, 400)
+          @article.update_attributes(params[:article])
         end
+
+        valid_with_present
       end
 
       desc "delete an article"
@@ -63,15 +76,13 @@ module Blog
       end
       delete ':id' do
         authenticate!
-        @article = Article.find_by(:id => params[:id])
+        find_by_id params[:id]
+        @article.destroy
 
-        if @article.present?
-          @article.destroy
-          if @article.persisted?
-            error!({ :error => 'delete article failed' }, 400)
-          end
+        if @article.persisted?
+          error!({ :error => 'delete article failed' }, 400)
         else
-          error!({ :error => 'article not found' }, 400)
+          true
         end
       end
 

@@ -7,6 +7,7 @@ class API::Base < Grape::API
       helpers API::Base::Util
       version 'v1', :using => :path
       format :json
+      default_error_status 400
       default_error_formatter :json
     end
   end
