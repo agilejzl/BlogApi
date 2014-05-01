@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe V1::API do
+describe Blog::API do
   let(:author) { Author.create(:name => 'zs') }
   let(:article) { FactoryGirl.create(:article, title: 'Sample Title', content: "Sample Content", author_id: author.id) }
 

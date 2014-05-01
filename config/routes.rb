@@ -3,7 +3,7 @@ require 'api/api'
 Rails.application.routes.draw do
   resources :articles
 
-  mount V1::API => '/'
+  mount Blog::API => '/'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
