@@ -3,7 +3,7 @@ BlogApi
 
 用Ruby构建Blog Api之Grape
 
-## Install
+## How to Install
 
 ```bash
 git clone git@github.com:agilejzl/BlogApi.git
@@ -13,7 +13,7 @@ ruby setup.rb
 rails s
 ```
 
-## Article接口访问示例
+## 接口访问示例
 
 查询所有: 
 ```bash
@@ -38,4 +38,11 @@ curl -X PUT -d '{"author_name": "ww","article":{"title": "haha2", "content": "no
 删除单个: 
 ```bash
 curl -X DELETE 'http://localhost:3000/v1/articles/1'
+```
+
+## How to Test
+
+Models and Api tests: 
+```bash
+rspec spec/models && rspec spec/app
 ```
