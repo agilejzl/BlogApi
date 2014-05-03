@@ -1,20 +1,25 @@
 require 'spec_helper'
 
-describe Blog::API do
+describe API::V2 do
+  # pending "Test api #{__FILE__}"
   let(:author) { Author.find_or_create_by(:name => 'zs') }
   let(:article) { FactoryGirl.create(:article, title: 'Sample Title', content: "Sample Content") }
 
-  describe "GET /v1/articles" do
+  before(:all) do
+    @ver = 'v2'
+  end
+
+  describe "GET /#{@ver}/articles" do
     it "returns an empty array of articles" do
-      get "/v1/articles"
+      get "/#{@ver}/articles"
       JSON.parse(response.body).should == []
       response.status.should == 200
     end
   end
 
-  describe "GET /v1/articles/:id" do
+  describe "GET /#{@ver}/articles/:id" do
     it "returns an article by id" do
-      get "/v1/articles/#{article.id}"
+      get "/#{@ver}/articles/#{article.id}"
 
       response.content_type.should == 'application/json'
       response_article = Article.new
@@ -25,7 +30,7 @@ describe Blog::API do
 
     context "with wrong article_id" do
       it "should not return article info" do
-        get "/v1/articles/WRONG_ID"
+        get "/#{@ver}/articles/WRONG_ID"
 
         response.content_type.should == 'application/json'
         response.status.should == 400
@@ -33,10 +38,10 @@ describe Blog::API do
     end
   end
 
-  describe "POST /v1/articles" do
+  describe "POST /#{@ver}/articles" do
     it "should create an article" do
       params = { :author_name => author.name, :article => article.to_hash }
-      post "/v1/articles", params
+      post "/#{@ver}/articles", params
        
       created_article = author.articles.last
       created_article.should_not eq nil
@@ -51,17 +56,17 @@ describe Blog::API do
     end
 
     it "should not allow create empty article" do
-      post "/v1/articles", { :author_name => author.name, article: { title: "" } }
+      post "/#{@ver}/articles", { :author_name => author.name, article: { title: "" } }
       author.should have(0).articles
 
       response.content_type.should == 'application/json'
       response.status.should == 400
     end
 
-    describe "PUT /v1/articles/:id" do
+    describe "PUT /#{@ver}/articles/:id" do
       it "should update an exist article" do
         params = { :author_name => "test", :article => { :title => "test", :content => "updated" } }
-        put "/v1/articles/#{article.id}", params
+        put "/#{@ver}/articles/#{article.id}", params
          
         updated_article = Article.find(article.id)
         updated_article.should_not eq nil
@@ -73,9 +78,9 @@ describe Blog::API do
       end
     end
 
-    describe "DELETE /v1/articles/:id" do
+    describe "DELETE /#{@ver}/articles/:id" do
       it "delete an article by id" do
-        delete "/v1/articles/#{article.id}"
+        delete "/#{@ver}/articles/#{article.id}"
 
         Article.find_by(:id => article.id).should == nil
         response.content_type.should == 'application/json'
@@ -84,7 +89,7 @@ describe Blog::API do
 
       context "with wrong article_id" do
         it "should not return article info" do
-          delete "/v1/articles/WRONG_ID"
+          delete "/#{@ver}/articles/WRONG_ID"
 
           response.content_type.should == 'application/json'
           response.status.should == 400

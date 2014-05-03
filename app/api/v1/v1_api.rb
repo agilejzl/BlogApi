@@ -1,25 +1,15 @@
+require "#{Rails.root}/app/api/v1/helpers"
 
-module Blog
-  class API < API::Base
+module API
+  class V1 < Grape::API
+    helpers BlogApi::HelpersV1
+
+    format :json
+    version 'v1', :using => :path
+    default_error_status 400
+    default_error_formatter :json
+    
     resource :articles do
-      helpers do
-        def find_by_id(id)
-          @article = Article.find_by(:id => id)
-          unless @article.present?
-            error!({ :error => 'article not found' }, 400)
-          end
-        end
-
-        def valid_with_present
-          if @article.valid?
-            present @article
-          else
-            error_msgs = @article.errors.to_json
-            logger.error error_msgs
-            error!({ :error => error_msgs }, 400)
-          end
-        end
-      end
 
       desc "get all articles information"
       get do
