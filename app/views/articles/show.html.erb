@@ -12,7 +12,7 @@
 
 <p>
   <strong>Author:</strong>
-  <%= @article.author_id %>
+  <%= @article.author.try(:name) %>
 </p>
 
 <%= link_to 'Edit', edit_article_path(@article) %> |

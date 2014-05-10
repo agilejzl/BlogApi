@@ -5,7 +5,7 @@ describe "articles/new" do
     assign(:article, stub_model(Article,
       :title => "MyString",
       :content => "MyText",
-      :author_id => 1
+      :author_name => 'MyAuthor'
     ).as_new_record)
   end
 
@@ -16,7 +16,7 @@ describe "articles/new" do
     assert_select "form[action=?][method=?]", articles_path, "post" do
       assert_select "input#article_title[name=?]", "article[title]"
       assert_select "textarea#article_content[name=?]", "article[content]"
-      assert_select "input#article_author_id[name=?]", "article[author_id]"
+      assert_select "input#article_author_name[name=?]", "article[author_name]"
     end
   end
 end

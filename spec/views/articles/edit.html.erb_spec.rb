@@ -5,7 +5,7 @@ describe "articles/edit" do
     @article = assign(:article, stub_model(Article,
       :title => "MyString",
       :content => "MyText",
-      :author_id => 1
+      :author_id => "MyAuthor"
     ))
   end
 
@@ -16,7 +16,7 @@ describe "articles/edit" do
     assert_select "form[action=?][method=?]", article_path(@article), "post" do
       assert_select "input#article_title[name=?]", "article[title]"
       assert_select "textarea#article_content[name=?]", "article[content]"
-      assert_select "input#article_author_id[name=?]", "article[author_id]"
+      assert_select "input#article_author_name[name=?]", "article[author_name]"
     end
   end
 end

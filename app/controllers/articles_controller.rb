@@ -69,6 +69,15 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
+      init_author_id
       params.require(:article).permit(:title, :content, :author_id)
+    end
+
+    def init_author_id
+      author_name = params[:article][:author_name]
+      unless author_name.blank?
+        @author = Author.find_or_create_by(:name => author_name.strip)
+        params[:article][:author_id] = @author.id
+      end
     end
 end

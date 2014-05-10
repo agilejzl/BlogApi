@@ -6,12 +6,12 @@ describe "articles/index" do
       stub_model(Article,
         :title => "Title",
         :content => "MyText",
-        :author_id => 1
+        :author_name => "MyAuthor"
       ),
       stub_model(Article,
         :title => "Title",
         :content => "MyText",
-        :author_id => 1
+        :author_name => "MyAuthor"
       )
     ])
   end
@@ -21,6 +21,6 @@ describe "articles/index" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Title".to_s, :count => 2
     assert_select "tr>td", :text => "MyText".to_s, :count => 2
-    assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => "MyAuthor".to_s, :count => 2
   end
 end
