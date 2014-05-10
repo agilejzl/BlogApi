@@ -1,4 +1,5 @@
-source 'http://ruby.taobao.org'
+source 'https://rubygems.org'
+# source 'http://ruby.taobao.org'
 
 gem 'rails', '4.1.0'
 gem 'mysql2'
@@ -13,6 +14,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'grape'
 # gem 'roar'
 gem 'will_paginate', '3.0.4'
+gem 'unicorn'
 
 group :development do
   gem 'spring'  
