@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://ruby.taobao.org/
   specs:
     actionmailer (4.1.0)
       actionpack (= 4.1.0)
@@ -107,6 +107,7 @@ GEM
     mysql2 (0.3.15)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    pg (0.17.1)
     polyglot (0.3.4)
     pry (0.9.12.6)
       coderay (~> 1.0)
@@ -211,6 +212,7 @@ DEPENDENCIES
   jquery-rails
   minitest
   mysql2
+  pg
   rails (= 4.1.0)
   rspec-expectations
   rspec-rails (= 2.14)
