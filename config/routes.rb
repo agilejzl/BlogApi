@@ -1,9 +1,9 @@
-require 'api/api'
+require "#{Rails.root}/app/api/api"
 
 Rails.application.routes.draw do
   resources :articles
 
-  mount Blog::API => '/'
+  mount API::Base => '/'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
