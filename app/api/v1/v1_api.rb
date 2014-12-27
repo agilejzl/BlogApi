@@ -8,7 +8,7 @@ module API
     version 'v1', :using => :path
     default_error_status 400
     default_error_formatter :json
-    
+
     resource :articles do
 
       desc "get all articles information"
@@ -31,7 +31,7 @@ module API
 
       desc "create an article"
       params do
-        requires :author_name, type: String, desc: "article's author name"
+        requires :author_name, type: String, desc: "author1's name"
         requires :article, type: Hash, desc: "article's attributes"
       end
       post do
@@ -43,8 +43,8 @@ module API
 
       desc "update an exist article"
       params do
-        optional :author_name, type: String, desc: "article's author name"
-        requires :article, type: Hash, desc: "article's new attributes"
+        optional :author_name, type: String, desc: "a newer name"
+        requires :article, type: Hash, desc: "updated attributes"
       end
       put ':id' do
         authenticate!
