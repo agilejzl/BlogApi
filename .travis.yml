@@ -1,0 +1,21 @@
+language: ruby
+bundler_args: --without development
+
+rvm:
+  - 2.0.0
+
+env:
+  - USE_OFFICIAL_GEM_SOURCE=1
+
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - RAILS_ENV=test bundle exec rake db:seed --trace
+  - RAILS_ENV=test bundle exec rspec -fd
+
+before_script:
+  - mysql -e 'create database IF NOT EXISTS `blog_api_test`'
+

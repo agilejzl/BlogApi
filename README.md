@@ -1,6 +1,14 @@
 BlogApi
 =======
 
+[![Build Status](http://img.shields.io/travis/agilejzl/BlogApi.svg)][travis]
+[![Code Climate](http://img.shields.io/codeclimate/github/agilejzl/BlogApi.svg)][codeclimate]
+[![Coverage Status](http://img.shields.io/coveralls/agilejzl/BlogApi.svg)][coveralls]
+
+[travis]: http://travis-ci.org/agilejzl/BlogApi
+[codeclimate]: https://codeclimate.com/github/agilejzl/BlogApi
+[coveralls]: https://coveralls.io/r/agilejzl/BlogApi
+
 用Ruby构建Blog Api之Grape
 
 ## How to Install

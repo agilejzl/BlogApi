@@ -3,7 +3,7 @@ default: &default
   adapter: mysql2
   encoding: utf8
   reconnt: false
-  database: blog_api_development
+  database: blog_api_dev
   pool: 5
   username: root
   password:
@@ -11,7 +11,7 @@ default: &default
 
 development:
   <<: *default
-  database: blog_api_development
+  database: blog_api_dev
 
 test:
   <<: *default
@@ -19,4 +19,4 @@ test:
 
 production:
   <<: *default
-  database: blog_api_production
+  database: blog_api_pro
