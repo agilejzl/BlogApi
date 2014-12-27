@@ -42,7 +42,7 @@ describe API::V1 do
     it "should create an article" do
       params = { :author_name => author.name, :article => article.to_hash }
       post "/#{@ver}/articles", params
-       
+
       created_article = author.articles.last
       created_article.should_not eq nil
       created_article.title.should eq "Sample Title"
@@ -67,7 +67,7 @@ describe API::V1 do
       it "should update an exist article" do
         params = { :author_name => "test", :article => { :title => "test", :content => "updated" } }
         put "/#{@ver}/articles/#{article.id}", params
-         
+
         updated_article = Article.find(article.id)
         updated_article.should_not eq nil
         updated_article.title.should eq "test"
