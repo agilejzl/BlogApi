@@ -17,7 +17,7 @@ rails s
 
 查询所有: 
 ```bash
-curl -X GET 'http://blog-api.herokuapp.com/v2/articles'
+curl -X GET 'http://blog-api.herokuapp.com/v2/articles' | json_pp
 ```
 
 查询单个: 
