@@ -13,7 +13,6 @@ matrix:
 
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
-  - RAILS_ENV=test bundle exec rake db:seed --trace
   - RAILS_ENV=test bundle exec rspec -fd
 
 before_script:
