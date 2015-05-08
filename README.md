@@ -50,7 +50,7 @@ curl -X DELETE 'http://blog-api.herokuapp.com/v1/articles/1'
 
 ## How to Test
 
-Models and Api tests: 
+Models and API tests: 
 ```bash
 rspec spec/models && rspec spec/app
 ```
